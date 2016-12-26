@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %} {{title}} {% endblock title %}
+
+{% block content %}
+    <h1>{{title}}</h1>
+      <form method="post" >
+        {% csrf_token %}
+        {{form.as_p}}
+        <!-- <div class="form-group">
+          <label for="username">Username:</label>
+          <input class="form-control" type="text" name="username", placeholder="Enter your username">
+        </div>
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" class="form-control" name="email", placeholder="Enter your Email">
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" class="form-control" name="password", placeholder="Enter your password">
+        </div>
+        <div class="form-group">
+          <label for="password2">Confirm Password:</label>
+          <input type="password" class="form-control" name="password2", placeholder="Confirm password">
+        </div> -->
+        
+        <button class="btn btn-default" type="submit" >Submit</button>
+    </form>  
+{% endblock content %}
+
+    <!-- <ul class="errors">
+    	<% if(errors){ for (error in errors){ %>
+    		<li class="alert alert-danger"> <%= errors[error].msg %> </li>
+    	<% }} %>
+    </ul> -->
+    
