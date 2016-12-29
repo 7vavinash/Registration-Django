@@ -17,9 +17,23 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from rest_framework.authtoken.models import Token
+
+# for obtaining a token when user provides username and password
+from rest_framework.authtoken import views
+
+@receiver(post_save, sender=settings.AUTH_USER_MODEL)
+def create_auth_token(sender, instance=None, created=False, **kwargs):
+    if created:
+        Token.objects.create(user=instance)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^api-token-auth/', views.obtain_auth_token),
+    url(r'^rest-auth/', include('rest_auth.urls')),
     url(r'^', include('cms.urls', namespace='cms')),
 ]
 

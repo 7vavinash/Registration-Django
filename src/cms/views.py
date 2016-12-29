@@ -5,6 +5,14 @@ from django.template.context_processors import csrf
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
+# Restframe work urls
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from .serializers import UserSerializer
+
+
+
 # Create your views here.
 @login_required
 def home(request):
@@ -58,3 +66,12 @@ def login_user(request):
 def logout_user(request):
 	logout(request)
 	return redirect('/')
+
+
+class UserDetails(APIView):
+
+	def get(self, request, format=None):
+		user = request.user
+		serializer = UserSerializer(user)
+		return Response(serializer.data)
+		
